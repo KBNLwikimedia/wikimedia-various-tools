@@ -1,0 +1,16 @@
+## macOS / Linux
+# Create vitural environment , optional, of not already done
+python3 -m venv .venv
+# Activate the venv 
+source .venv/bin/activate
+# Install the Python packages in the venv
+python -m pip install -r requirements.txt
+
+
+## Windows (PowerShell)
+# Create vitural environment , optional, of not already done
+py -m venv .venv 
+# Activate the venv 
+.\.venv\Scripts\Activate.ps1
+# Install the Python packages in the venv
+python -m pip install -r requirements.txt

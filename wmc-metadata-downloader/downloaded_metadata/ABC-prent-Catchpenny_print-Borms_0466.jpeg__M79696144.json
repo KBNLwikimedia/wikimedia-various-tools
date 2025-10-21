@@ -1,0 +1,104 @@
+{
+    "batchcomplete": true,
+    "query": {
+        "pages": [
+            {
+                "imageinfo": [
+                    {
+                        "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=79696144",
+                        "descriptionurl": "https://commons.wikimedia.org/wiki/File:ABC-prent-Catchpenny_print-Borms_0466.jpeg",
+                        "extmetadata": {
+                            "Artist": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn value\">\nPublisher: s.n.</div>"
+                            },
+                            "Assessments": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": ""
+                            },
+                            "AttributionRequired": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "false"
+                            },
+                            "Categories": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": "Media contributed by Koninklijke Bibliotheek|PD-old-70-expired|Artworks without Wikidata item|Unsupported object|PD-Art (PD-old-70-expired)|Artworks with known accession number|CC-PD-Mark|GWToolset Batch Upload|Catchpenny prints from Koninklijke Bibliotheek|Alphabets in art|Illustrated alphabets"
+                            },
+                            "CommonsMetadataExtension": {
+                                "hidden": "",
+                                "source": "extension",
+                                "value": 1.2
+                            },
+                            "Copyrighted": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "False"
+                            },
+                            "Credit": {
+                                "source": "commons-desc-page",
+                                "value": "This digital media file - and/or the physical objects depicted on it - originates from the digital and/or physical collections of the <a rel=\"nofollow\" class=\"external text\" href=\"https://www.kb.nl/\">Koninklijke Bibliotheek</a>, national library of the Netherlands."
+                            },
+                            "DateTime": {
+                                "hidden": "",
+                                "source": "mediawiki-metadata",
+                                "value": "2019-06-14 16:42:39"
+                            },
+                            "DateTimeOriginal": {
+                                "source": "commons-desc-page",
+                                "value": "19<sup>th</sup> century<div style=\"display: none;\">date QS:P571,+1850-00-00T00:00:00Z/7</div>"
+                            },
+                            "ImageDescription": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"description\">\nAbc-prent met 5 omkaderde houtsneden, met een alfabet met afbeeldingen, voorzien van een letter in kapitaal, een in onderkast en een schrijfletter: aap, beer, citroen, duif, eend, fles, glas, haan, inktpot, juk, kandelaar, lepel, mes, neus, os, pot, quast, ratel, schaap, theepot, uil, vork, wieg, Xantippe, ijsslee, zaag. Daarna volgen de cijfers 1-10 (arabisch en romeins).</div>"
+                            },
+                            "License": {
+                                "hidden": "",
+                                "source": "commons-templates",
+                                "value": "pd"
+                            },
+                            "LicenseShortName": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            },
+                            "ObjectName": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn\">\nABC-prent</div>"
+                            },
+                            "Permission": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "<table cellspacing=\"8\" cellpadding=\"0\" style=\"clear:both; margin:0.5em auto; background-color: var(--background-color-interactive, #f0f0f0); color: inherit; border: 2px solid var(--border-color-subtle, #e0e0e0); width:100%;\" class=\"layouttemplate\" dir=\"ltr\" lang=\"en\">\n<tbody><tr>\n<td>\n<div class=\"center\">This is a faithful photographic reproduction of a two-dimensional, <a href=\"//commons.wikimedia.org/wiki/Public_domain\" class=\"mw-redirect\" title=\"Public domain\">public domain</a> work of art. The work of art itself is in the public domain for the following reason:</div>\n<div dir=\"auto\">\n<table class=\"licensetpl\" style=\"display:none\">\n<tbody><tr>\n<td><span class=\"licensetpl_short\">Public domain</span><span class=\"licensetpl_long\">Public domain</span><span class=\"licensetpl_link_req\">false</span><span class=\"licensetpl_attr_req\">false</span>\n</td></tr></tbody></table>\n<table style=\"width: 100%; clear: both; margin: 0.5em auto; background-color: var(--background-color-progressive-subtle, #f7f8ff); color: var(--color-base, #202122); border: var(--border-subtle, 2px solid #8888aa); border-spacing: 8px; padding: 0px;\" dir=\"ltr\" class=\"layouttemplate\" lang=\"en\">\n<tbody><tr>\n<td><span typeof=\"mw:File\"><span title=\"Public domain\"><img alt=\"Public domain\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/PD-icon.svg/120px-PD-icon.svg.png\" decoding=\"async\" width=\"64\" height=\"64\" class=\"mw-file-element\" srcset=\"https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/PD-icon.svg/128px-PD-icon.svg.png 2x\" data-file-width=\"196\" data-file-height=\"196\"></span></span>\n</td>\n<td>\n<p>This work is in the <b><a href=\"https://en.wikipedia.org/wiki/public_domain\" class=\"extiw\" title=\"en:public domain\">public domain</a></b> in its country of origin and other countries and areas where the <a href=\"https://en.wikipedia.org/wiki/List_of_countries%27_copyright_lengths\" class=\"extiw\" title=\"w:List of countries' copyright lengths\">copyright term</a> is the author's <b>life plus 70 years or fewer</b>.\n</p>\n<hr>\n<p>This work is in the <b><a href=\"https://en.wikipedia.org/wiki/public_domain\" class=\"extiw\" title=\"en:public domain\">public domain</a></b> in the <a href=\"https://en.wikipedia.org/wiki/United_States\" class=\"extiw\" title=\"en:United States\">United States</a> because it was <a href=\"//commons.wikimedia.org/wiki/Commons:Publication\" title=\"Commons:Publication\">published</a> (or registered with the <a href=\"https://en.wikipedia.org/wiki/United_States_Copyright_Office\" class=\"extiw\" title=\"en:United States Copyright Office\">U.S. Copyright Office</a>) before January 1, 1930.\n</p>\n</td></tr>\n<tr>\n<td colspan=\"2\" style=\"text-align:center;font-size:x-small;line-height:140%;\"><a href=\"https://creativecommons.org/publicdomain/mark/1.0/deed.en\" class=\"extiw\" title=\"ccorg:publicdomain/mark/1.0/deed.en\">This file has been identified as being free of known restrictions under copyright law, including all related and neighboring rights.</a>\n</td></tr></tbody></table><span class=\"licensetpl_link\" style=\"display:none;\">https://creativecommons.org/publicdomain/mark/1.0/</span><span class=\"licensetpl_short\" style=\"display:none;\">PDM</span><span class=\"licensetpl_long\" style=\"display:none;\">Creative Commons Public Domain Mark 1.0</span><span class=\"licensetpl_link_req\" style=\"display:none;\">false</span><span class=\"licensetpl_attr_req\" style=\"display:none;\">false</span></div>\n<div class=\"center\">The official position taken by the Wikimedia Foundation is that \"<i>faithful reproductions of two-dimensional public domain works of art are public domain</i>\".<br><b>This photographic reproduction is therefore also considered to be in the public domain in the United States.</b> In other jurisdictions, re-use of this content may be restricted; <b>see <a href=\"//commons.wikimedia.org/wiki/Commons:Reuse_of_PD-Art_photographs\" title=\"Commons:Reuse of PD-Art photographs\">Reuse of PD-Art photographs</a> for details.</b></div> \n</td></tr></tbody></table>"
+                            },
+                            "Restrictions": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": ""
+                            },
+                            "UsageTerms": {
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            }
+                        },
+                        "height": 1962,
+                        "mediatype": "BITMAP",
+                        "mime": "image/jpeg",
+                        "sha1": "c4991cdc78c801953a7a6e73ea0f350a3181475b",
+                        "size": 539334,
+                        "timestamp": "2019-06-14T16:42:39Z",
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/ABC-prent-Catchpenny_print-Borms_0466.jpeg",
+                        "user": "OlafJanssen",
+                        "width": 1500
+                    }
+                ],
+                "imagerepository": "local",
+                "ns": 6,
+                "pageid": 79696144,
+                "title": "File:ABC-prent-Catchpenny print-Borms 0466.jpeg"
+            }
+        ]
+    }
+}
