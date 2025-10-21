@@ -263,5 +263,5 @@ Released into the public domain under [CC0 1.0 public domain dedication](LICENSE
 * Author: Olaf Janssen, Wikimedia coordinator [@ KB, National Library of the Netherlands](https://www.kb.nl)
 * Contact via [KB expert page](https://www.kb.nl/over-ons/experts/olaf-janssen) or [Wikimedia user page](https://commons.wikimedia.org/wiki/User:OlafJanssen).
 * User-Agent: `"Wikimedia Commons File Metadata Downloader - User:OlafJanssen - Contact: olaf.janssen@kb.nl)"`
----
+
 
