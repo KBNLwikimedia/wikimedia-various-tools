@@ -8,6 +8,8 @@ This tool has two operation modes:
 
 The script saves the exact API response for each file as JSON into `downloaded_metadata/` (Windows-safe filenames, overwrite if identical) and appends flattened JSON columns to the Excel workbook as it progresses.
 
+*Latest update*: 22 October 2025
+
 ---
 
 ## What you’ll get
