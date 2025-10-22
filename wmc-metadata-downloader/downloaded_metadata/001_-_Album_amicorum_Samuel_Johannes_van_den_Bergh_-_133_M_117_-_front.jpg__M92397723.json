@@ -1,0 +1,95 @@
+{
+    "batchcomplete": true,
+    "query": {
+        "pages": [
+            {
+                "imageinfo": [
+                    {
+                        "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=92397723",
+                        "descriptionurl": "https://commons.wikimedia.org/wiki/File:001_-_Album_amicorum_Samuel_Johannes_van_den_Bergh_-_133_M_117_-_front.jpg",
+                        "extmetadata": {
+                            "Artist": {
+                                "source": "commons-desc-page",
+                                "value": "<bdi><a href=\"https://www.wikidata.org/wiki/Q2175903\" class=\"extiw\" title=\"d:Q2175903\"><span title=\"pharmacist, poet and writer from the Kingdom of the Netherlands 1814-1868, owner/creator of the album amicorum of Samuel Johannes van den Bergh (1814–1868)\">Samuel Johannes van den Bergh</span></a></bdi>"
+                            },
+                            "Assessments": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": ""
+                            },
+                            "AttributionRequired": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "false"
+                            },
+                            "Categories": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": "Media contributed by Koninklijke Bibliotheek|Author died more than 70 years ago public domain images|Uploaded with pattypan|Pages with complex technique templates|CC-PD-Mark|Artworks digital representation of unknown type of work|Artworks with digital representation of different depicts|Album amicorum van Samuel Johannes van den Bergh"
+                            },
+                            "CommonsMetadataExtension": {
+                                "hidden": "",
+                                "source": "extension",
+                                "value": 1.2
+                            },
+                            "Copyrighted": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "False"
+                            },
+                            "Credit": {
+                                "source": "commons-desc-page",
+                                "value": "This digital media file - and/or the physical objects depicted on it - originates from the digital and/or physical collections of the <a rel=\"nofollow\" class=\"external text\" href=\"https://www.kb.nl/\">Koninklijke Bibliotheek</a>, national library of the Netherlands."
+                            },
+                            "DateTime": {
+                                "hidden": "",
+                                "source": "mediawiki-metadata",
+                                "value": "2020-07-19 19:56:08"
+                            },
+                            "ImageDescription": {
+                                "source": "commons-desc-page",
+                                "value": "Album amicorum of Samuel Johannes van den Bergh"
+                            },
+                            "License": {
+                                "hidden": "",
+                                "source": "commons-templates",
+                                "value": "pd"
+                            },
+                            "LicenseShortName": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            },
+                            "ObjectName": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn\">\n<div style=\"font-size:0.9em;display:inline-block;\">Dutch:  <div style=\"display:inline-block\" dir=\"ltr\" lang=\"nl\"><i>Album amicorum / van Samuel Johannes van den Bergh <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q72752427#P1476\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span></i></div></div><br><div style=\"font-weight:bold;display:inline-block;\"><div style=\"display:inline-block\" dir=\"ltr\" lang=\"en\"><i>Album amicorum of Samuel Johannes van den Bergh (1814-1868), poet and pharmacist</i></div></div><div style=\"display: none;\">title QS:P1476,nl:\"Album amicorum / van Samuel Johannes van den Bergh <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q72752427#P1476\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>\"</div><div style=\"display: none;\">label QS:Lnl,\"Album amicorum / van Samuel Johannes van den Bergh <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q72752427#P1476\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>\"</div><div style=\"display: none;\">label QS:Lga,\"Album amicorum of Samuel Johannes van den Bergh (1814-1868), poet and pharmacist\"</div><div style=\"display: none;\">label QS:Len,\"Album amicorum of Samuel Johannes van den Bergh (1814-1868), poet and pharmacist\"</div></div>"
+                            },
+                            "Restrictions": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": ""
+                            },
+                            "UsageTerms": {
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            }
+                        },
+                        "height": 1966,
+                        "mediatype": "BITMAP",
+                        "mime": "image/jpeg",
+                        "sha1": "42c106bd7180cc5656b567d18939341efde45a35",
+                        "size": 6117453,
+                        "timestamp": "2020-07-19T19:56:08Z",
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/001_-_Album_amicorum_Samuel_Johannes_van_den_Bergh_-_133_M_117_-_front.jpg",
+                        "user": "DanielleJWiki",
+                        "width": 2500
+                    }
+                ],
+                "imagerepository": "local",
+                "ns": 6,
+                "pageid": 92397723,
+                "title": "File:001 - Album amicorum Samuel Johannes van den Bergh - 133 M 117 - front.jpg"
+            }
+        ]
+    }
+}

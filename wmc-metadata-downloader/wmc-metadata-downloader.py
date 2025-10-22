@@ -3,163 +3,128 @@ Wikimedia Commons File Metadata Downloader & Excel Writer
 
 Overview
 ========
-This script builds a reliable, resumable pipeline for collecting **per-file metadata**
-from Wikimedia Commons files or categories and writing it into an Excel workbook. It supports two
-complementary modes:
+This script builds a reliable pipeline to collect **per-file metadata** from
+Wikimedia Commons and write it into a single Excel workbook. It supports two
+modes:
 
-1) **manual-list** — read a list of Commons file titles from an input sheet.
-2) **category** — harvest all (or a selected **range**) of file titles from a Commons
-   category with API continuation, write them into an input sheet, and then process
-   them the same way as the manual list.
+1) **manual-list** — read a list of files from an input sheet you maintain.
+2) **category** — harvest files from a Commons category (optionally a 1-based
+   inclusive **range**, e.g., items 20–40), write them to an input sheet, and
+   process them exactly like the manual list.
 
 For **every file**, the script:
-- Fetches full JSON metadata via the Commons API (`prop=imageinfo`, including
-  `extmetadata`, `url`, `size`, `sha1`, `mime`, `mediatype`, `timestamp`, `user`).
-- Derives the **MediaInfo ID (MID)** from the MediaWiki pageid (e.g., `"M12345"`),
-  and constructs a human URL to the entity page.
-- Saves the **exact JSON response** to disk in `downloaded_metadata/` using a
-  **Windows-safe** filename of the form:
-  `<CommonsFileName>__<MID or NOID>.json`. If the full path would exceed a
-  conservative length budget, the filename is truncated and a short hash is added.
-  **If the same filename is produced again, the file is overwritten**.
-- Flattens the JSON into **dotted columns** and appends rows to an **output sheet**
-  in the same workbook, **in chunks** (batches) so that progress is durable for
-  very large lists/categories.
+- Fetches JSON via the Commons API (`prop=imageinfo` with
+  `iiprop=extmetadata|url|size|sha1|mime|mediatype|timestamp|user`, `redirects=1`,
+  `formatversion=2`, language set by `EXTMETA_LANG`).
+- Derives the MediaInfo ID (**MID**) from the returned `pageid` (e.g., `M12345`)
+  and a human URL to the entity page.
+- Saves the **verbatim JSON** response to `downloaded_metadata/` using a
+  **Windows-safe** filename derived from `<CommonsFileName>__<MID or NOID>.json`.
+  If the same filename is produced again, it is **overwritten**. If paths risk
+  being too long, the base name is truncated and a short hash is added.
+- Flattens the JSON to dotted columns and writes rows to an **output sheet** in
+  **chunks** (batches), widening columns when new keys appear.
 
-Workbook & Sheets
+Workbook & sheets
 =================
-- **Workbook** (both modes): ``wmc-inputfiles.xlsx``
+Workbook: **`wmc-inputfiles.xlsx`**
 
 - **Manual-list mode**
-  - **Input sheet:** ``Files-Manual``
-    Columns:
-    - ``CommonsFileName`` (required; e.g., ``File:Example.jpg`` — the script will
-      normalize missing ``File:`` prefixes automatically)
-    - ``SourceCategory`` (optional; carried through to outputs)
-  - **Output sheet:** ``FilesMetadata-Manual``
+  - Input sheet:  **`Files-Manual`**
+    - Columns:
+      - `CommonsFileName` (required; `File:` prefix is added if missing)
+      - `SourceCategory`  (optional; carried through to outputs)
+  - Output sheet: **`FilesMetadata-Manual`**
+    - De-duplication (hard-wired): rows are deduped by
+      (`Input_CommonsFileName`, `Computed_MediaID`).
 
 - **Category mode**
-  - **Harvest sheet:** ``Files-Category`` (built/updated by the script)
-    Columns:
-    - ``CommonsFileName`` (harvested from the category)
-    - ``SourceCategory`` (the category you harvested)
-  - **Output sheet:** ``FilesMetadata-Category``
+  - Harvest/input sheet: **`Files-Category`**
+    - Filled by the script. Each row has:
+      - `CommonsFileName` (harvested title, e.g., `File:Example.jpg`)
+      - `SourceCategory`  (the category the file came from)
+    - **Append-safe harvest**: new category runs APPEND to this sheet, not replace.
+      Existing rows are **deduped** by (`CommonsFileName`, `SourceCategory`), so
+      you can safely harvest multiple categories into the same sheet.
+  - Output sheet: **`FilesMetadata-Category`**
+    - De-duplication (hard-wired): rows are deduped by
+      (`Input_CommonsFileName`, `Computed_MediaID`, `SourceCategory`).
+      This removes true duplicates from re-runs of the same category/range while
+      still allowing the same file to appear once per different source category.
 
-Output Columns (both modes)
-===========================
-Each row written to the output sheet contains **front/base columns** followed by
-**all flattened JSON fields**:
+Chunking & ranges
+=================
+- **Processing chunks** (both modes): rows are processed in batches
+  (`CHUNK_SIZE`). Each batch is appended to the output sheet; if a batch brings
+  new JSON fields, the sheet is widened and replaced once, then appends continue.
+- **Harvest flushes** (category mode): harvested filenames buffer in memory and
+  are written to `Files-Category` every `HARVEST_FLUSH_ROWS`.
+- **Category range**: optional 1-based inclusive slice
+  (`CATEGORY_RANGE_START`, `CATEGORY_RANGE_END`) limits which items are taken
+  from the category’s traversal order.
 
-- ``Input_CommonsFileName`` — original title from the input sheet
-- ``SourceCategory`` — carried through from input/harvest
-- ``Requested_API_URL`` — the fully prepared request URL used
-- ``Local_JSON_File`` — path to the saved JSON file
-- ``Computed_MediaID`` — e.g., ``M12345`` (empty if not found)
-- ``Computed_MediaID_URL`` — link to the entity page (empty if no MID)
-- ``BatchIndex`` — 1-based index of the chunk that wrote this row
-- ``… (flattened JSON columns)`` — e.g., ``query.pages.0.title``,
-  ``query.pages.0.imageinfo.0.url``,
-  ``query.pages.0.imageinfo.0.extmetadata.Artist.value``, etc.
+Idempotency & overwrite rules
+=============================
+- **Files-Category**: appends with dedupe on (`CommonsFileName`, `SourceCategory`).
+- **FilesMetadata-Manual**: appends with dedupe on
+  (`Input_CommonsFileName`, `Computed_MediaID`).
+- **FilesMetadata-Category**: appends with dedupe on
+  (`Input_CommonsFileName`, `Computed_MediaID`, `SourceCategory`).
+- **JSON files**: if the generated filename is the same, it is **overwritten**.
 
-Modes & Flow
-============
-**Manual-list mode**
-1. Read ``Files-Manual`` (Columns: ``CommonsFileName``, optional ``SourceCategory``).
-2. Normalize titles to ``File:…``.
-3. Process in **chunks** (see CHUNK_SIZE): fetch JSON → save JSON → flatten →
-   append rows to ``FilesMetadata-Manual`` (expanding columns when new keys appear).
+Progress & resilience
+=====================
+- Per-file progress lines like:
+  `[123/8120] Fetching File:Example.jpg … done (MID=M123456)`
+- Retry/backoff on transient HTTP errors (429/5xx) with a polite **User-Agent**
+  (`USER_AGENT`) per Wikimedia API etiquette.
+- If a JSON write fails (e.g., I/O), the row is still written; `Local_JSON_File`
+  may be empty, and an error message is printed.
+- Input read errors (missing workbook/sheet/columns) raise clear exceptions.
 
-**Category mode**
-1. **Harvest** from ``CATEGORY_TITLE`` using `list=categorymembers`:
-   - Handles API **continuation** (`cmcontinue`) until the category is exhausted,
-     or until an optional **1-based inclusive range** is satisfied
-     (``CATEGORY_RANGE_START``, ``CATEGORY_RANGE_END``; set in code).
-   - Writes harvested titles in **batches** to ``Files-Category`` (see
-     HARVEST_FLUSH_ROWS).
-2. **Process** the harvested sheet in **chunks** (see CHUNK_SIZE), appending to
-   ``FilesMetadata-Category`` exactly as in manual-list mode.
-
-Chunking & Flush Cadence
-========================
-- ``HARVEST_FLUSH_ROWS`` (category mode only): how many harvested file titles to
-  buffer **before writing them to** ``Files-Category`` during the *harvest phase*.
-  Smaller = more frequent Excel writes; larger = fewer writes but more memory.
-- ``CHUNK_SIZE`` (both modes): how many input rows to process per batch during the
-  *processing phase*. Each batch is **appended** to the output sheet; if a batch
-  introduces new JSON columns, the sheet is widened and replaced once.
-
-Network Etiquette & Robustness
-==============================
-- Requests are sent with a polite **User-Agent** that includes contact info:
-  ``KB WMC metadata fetcher - User:OlafJanssen - Contact: olaf.janssen@kb.nl)``.
-- Automatic **retry/backoff** on transient errors (HTTP 429/5xx).
-- The API call follows Commons **redirects** (e.g., for renamed files).
-- Per-file progress is printed:
-  ``[123/8120] Fetching File:Example.jpg … done (MID=M123456)``
-
-JSON Files on Disk
-==================
-- Directory: ``downloaded_metadata/`` (created if missing).
-- Naming: ``<CommonsFileName>__<MID or NOID>.json``
-  If too long for Windows, the script truncates the base name and adds an
-  8-character hash; as a last resort the filename collapses to
-  ``<MID or NOID>__<hash>.json`` or just ``<hash>.json``.
-- **Overwrite policy:** if a run generates the **same** filename as a previous
-  run, it **overwrites** that JSON file.
-
-Configuration (edit in-code)
+Configuration (edit in code)
 ============================
-The configuration block is included **verbatim** near the top of the script. Key settings:
+A configuration block is included **verbatim** near the top of the script. Key items:
 
-- **Mode selection**
-  - ``MODE``: ``"manual-list"`` or ``"category"``
-  - ``CATEGORY_TITLE``: required for category mode
-- **Workbook & sheets**
-  - ``XLSX_PATH = "wmc-inputfiles.xlsx"``
-  - Manual input/output: ``Files-Manual`` → ``FilesMetadata-Manual``
-  - Category input/output: ``Files-Category`` → ``FilesMetadata-Category``
-- **Harvesting**
-  - ``CATEGORY_PAGE_LIMIT`` (usually 500 for non-bot)
-  - ``HARVEST_FLUSH_ROWS`` (category mode only)
-  - Optional: ``CATEGORY_RANGE_START`` / ``CATEGORY_RANGE_END`` (1-based inclusive)
-- **Processing**
-  - ``CHUNK_SIZE`` (both modes)
-- **API & files**
-  - ``EXTMETA_LANG`` (e.g., ``"en"`` or ``"nl"``), ``USER_AGENT``, ``DOWNLOAD_DIR``
-  - ``FULL_PATH_BUDGET`` (conservative Windows full-path length limit)
+- `MODE` — `"manual-list"` or `"category"`, and (for category mode) `CATEGORY_TITLE`
+- `XLSX_PATH` — workbook path (default `wmc-inputfiles.xlsx`)
+- Sheet names: `Files-Manual`, `Files-Category`,
+  `FilesMetadata-Manual`, `FilesMetadata-Category`
+- `CATEGORY_PAGE_LIMIT`, `HARVEST_FLUSH_ROWS`, `CHUNK_SIZE`
+- Optional `CATEGORY_RANGE_START` / `CATEGORY_RANGE_END`
+- API & file settings: `EXTMETA_LANG`, `USER_AGENT`, `DOWNLOAD_DIR`,
+  `FULL_PATH_BUDGET` (conservative Windows full-path limit)
 
-Installation & Running
-======================
-- Requires Python 3.9+ recommended. Install dependencies:
+Outputs (columns)
+=================
+Each output row begins with:
+- `Input_CommonsFileName`
+- `SourceCategory`
+- `Requested_API_URL`
+- `Local_JSON_File`
+- `Computed_MediaID`
+- `Computed_MediaID_URL`
+- `BatchIndex` (1-based, the processing chunk number)
+…followed by **all flattened JSON fields** (e.g., `query.pages.0.title`,
+`query.pages.0.imageinfo.0.url`,
+`query.pages.0.imageinfo.0.extmetadata.Artist.value`, …).
 
-  ``pip install -r requirements.txt``
-
-  with:
-
-  ``pandas>=1.5.0``, ``openpyxl>=3.1.0``, ``requests>=2.31.0``, ``urllib3>=2.0.0``
-
-- Ensure the Excel workbook is **closed** before running.
-- Edit the config block (MODE, CATEGORY_TITLE, etc.) and execute:
-
-  ``python wmc_metadata.py``
-
-Error Handling & Limits
-=======================
-- Input reading errors (missing workbook/sheet/column) raise clear exceptions.
-- Network failures are captured per file; the row will include an ``error.message``
-  column and processing will continue.
-- JSON file write failures are logged; the row still lands in Excel with an empty
-  ``Local_JSON_File`` path.
-- For extremely large categories, expect a long harvest with many continuation
-  steps—intermediate writes keep progress durable.
+How to run
+==========
+1. Install dependencies (`requirements.txt`) in a virtual environment.
+2. Ensure `wmc-inputfiles.xlsx` exists and is **closed** in Excel.
+3. Edit the config block (MODE, CATEGORY_TITLE, etc.).
+4. Run: `python wmc_metadata.py`
 
 Notes
 =====
-- ``SourceCategory`` is a free-form input in manual-list mode; in category mode it
-  is set to ``CATEGORY_TITLE`` for each harvested row.
-- The output schema widens dynamically as new JSON keys appear in later chunks.
-- If you enable long paths on Windows, you can increase ``FULL_PATH_BUDGET``.
+- `SourceCategory` in manual mode is optional and not modified by the script.
+- The output schema grows as new JSON keys appear; earlier rows will have blanks
+  for fields not present at the time they were written.
+- If you enable long paths on Windows, you may increase `FULL_PATH_BUDGET`.
 
+License & contact
+=================
 Author: ChatGPT, prompted by Olaf Janssen, KB (Koninklijke Bibliotheek)
 Latest update: 2025-10-22
 License: CC0
@@ -183,10 +148,22 @@ from urllib3.util.retry import Retry
 # Comment out the mode you do NOT want to use:
 #MODE = "manual-list" # Comment out if MODE = category
 MODE = "category"  # In this mode, you must configure the CATEGORY_TITLE below.
-CATEGORY_TITLE = "Category:Catchpenny prints from Koninklijke Bibliotheek"
+CATEGORY_TITLE = "Category:Media_contributed_by_Koninklijke_Bibliotheek"
+#CATEGORY_TITLE = "Category:Catchpenny_prints_from_Koninklijke_Bibliotheek"
 # Optional range for CATEGORY mode (1-based inclusive). First 10 files in this category:
 CATEGORY_RANGE_START: Optional[int] = 1  # Set to None to process all
-CATEGORY_RANGE_END:   Optional[int] = 10  # None = process all
+CATEGORY_RANGE_END:   Optional[int] = 20  # None = process all
+
+## Harvest settings for MODE = "category"
+# Harvest behavior (appends instead of replacing by default)
+HARVEST_APPEND: bool = True    # if False, the harvest will overwrite any rows already present in the Files-Category sheet
+                               # If True, it keeps existing rows in the Files-Category sheet and appends new ones.
+# Only if HARVEST_APPEND: bool = True:
+HARVEST_DEDUPE: bool = True    # True = skip rows already present in the Files-Category sheet, as to avoid duplication (by filename+category)
+
+# HARVEST_FLUSH_ROWS : Category-mode only. How many harvested filenames (from the Commons category) we
+# accumulate before writing them into the input sheet WMCFiles-Category.
+HARVEST_FLUSH_ROWS = 100
 
 # Adapt the User-Agent for with your own details
 USER_AGENT = "Wikimedia Commons File Metadata Downloader - User:OlafJanssen - Contact: olaf.janssen@kb.nl)"
@@ -203,10 +180,6 @@ OUTPUT_SHEET_CATEGORY = "FilesMetadata-Category"
 
 # Category harvesting
 CATEGORY_PAGE_LIMIT = 500  # API max for non-bot
-
- # HARVEST_FLUSH_ROWS : Category-mode only. How many harvested filenames (from the Commons category) we
-# accumulate before writing them into the input sheet WMCFiles-Category.
-HARVEST_FLUSH_ROWS = 100
 
 # CHUNK_SIZE → Both modes. How many files we actually process per batch (fetch JSON, save per-file JSON, flatten,
 # and append rows to the output sheet).
@@ -548,19 +521,23 @@ def replace_sheet(xlsx_path: str, sheet_name: str, df: pd.DataFrame) -> None:
         raise
 
 
-def append_chunk_to_sheet(xlsx_path: str, sheet_name: str, chunk: pd.DataFrame) -> None:
+def append_chunk_to_sheet(
+    xlsx_path: str,
+    sheet_name: str,
+    chunk: pd.DataFrame,
+    dedupe_keys: Optional[List[str]] = None,
+    dedupe_keep: str = "first",
+) -> None:
     """
     Append a chunk to an existing sheet, widening columns if needed.
     If the sheet doesn't exist, create it with this chunk.
 
-    Strategy:
-        - Read existing sheet.
-        - Union columns (preserve order).
-        - Concat existing+chunk.
-        - Replace the sheet atomically.
+    If dedupe_keys is provided, drop duplicate rows by those keys after
+    concatenating existing+chunk. 'dedupe_keep' controls which duplicate
+    to retain: 'first' (default) or 'last'.
 
-    Raises:
-        Any exceptions from read/write are surfaced after logging.
+    Robustness: if some dedupe columns are missing (older runs), we de-dup
+    on the subset that exists; if none exist, we skip de-dup with a warning.
     """
     try:
         if not sheet_exists(xlsx_path, sheet_name):
@@ -571,11 +548,22 @@ def append_chunk_to_sheet(xlsx_path: str, sheet_name: str, chunk: pd.DataFrame) 
         all_cols = list(dict.fromkeys(list(existing.columns) + list(chunk.columns)))
         existing = existing.reindex(columns=all_cols)
         chunk = chunk.reindex(columns=all_cols)
+
         combined = pd.concat([existing, chunk], ignore_index=True)
+
+        if dedupe_keys:
+            present = [k for k in dedupe_keys if k in combined.columns]
+            if present:
+                combined = combined.drop_duplicates(subset=present, keep=dedupe_keep, ignore_index=True)
+            else:
+                print(f"⚠️  Dedupe skipped for '{sheet_name}': none of {dedupe_keys} present.")
+
         replace_sheet(xlsx_path, sheet_name, combined)
     except Exception as e:
         print(f"❌ Failed to append chunk to '{sheet_name}': {e}")
         raise
+
+
 
 
 # ---------- API calls ----------
@@ -638,36 +626,64 @@ def harvest_category_to_sheet(
     flush_rows: int = HARVEST_FLUSH_ROWS,
     index_start: Optional[int] = None,  # 1-based inclusive
     index_end: Optional[int] = None,    # 1-based inclusive
+    replace_existing: bool = not HARVEST_APPEND,
+    dedupe: bool = HARVEST_DEDUPE,
 ) -> None:
     """
-    Harvest files from a Commons category (with continuation) and write/append to
-    the input sheet ('CommonsFileName', 'SourceCategory'). Supports selecting a
-    1-based inclusive RANGE within the category (e.g., 20..40).
-
-    Args:
-        session: configured HTTP session.
-        category_title: 'Category:...' page to harvest.
-        xlsx_path: workbook path.
-        sheet_name: sheet for harvested items.
-        flush_rows: write to Excel after this many rows buffered.
-        index_start: first item index to include (1-based, inclusive).
-        index_end: last item index to include (1-based, inclusive).
+    Harvest files from a Commons category (with continuation) and write to an input sheet.
 
     Behavior:
-        - Replaces the sheet header at the start to ensure a clean slate.
-        - Stops early once the requested range is fully written.
-        - Prints progress and totals.
+      - If replace_existing=True: start with a clean sheet header (REPLACE).
+      - Else (default): APPEND to the existing sheet. When dedupe=True, existing (filename, category)
+        pairs are skipped so you can safely run multiple categories into the same sheet.
+      - Supports selecting a 1-based inclusive RANGE (index_start..index_end). The function
+        never clears the sheet for empty ranges; it just warns and returns.
+
+    Columns written: 'CommonsFileName', 'SourceCategory'
     """
+
+    def norm_key(filename: str, source_cat: str) -> tuple[str, str]:
+        # Normalize filename to 'File:...' and compare case-insensitively
+        fn = norm_file_title((filename or "").strip()).lower()
+        sc = (source_cat or "").strip().lower()
+        return (fn, sc)
+
+    # Validate range early without touching the sheet
     if index_start is not None and index_end is not None and index_end < index_start:
-        print(f"⚠️  Empty range ({index_start}..{index_end}); nothing to harvest.")
-        replace_sheet(xlsx_path, sheet_name, pd.DataFrame(columns=["CommonsFileName", "SourceCategory"]))
+        print(f"⚠️  Empty range ({index_start}..{index_end}); nothing to harvest. Sheet left unchanged.")
         return
 
-    print(f"Harvesting category: {category_title}"
-          + (f" [range {index_start}..{index_end}]" if index_start or index_end else ""))
+    want_start = index_start or 1
+    want_end = index_end or float("inf")
 
-    # Start fresh sheet for this harvest
-    replace_sheet(xlsx_path, sheet_name, pd.DataFrame(columns=["CommonsFileName", "SourceCategory"]))
+    existing_keys: set[tuple[str, str]] = set()
+    total_existing = 0
+
+    if replace_existing:
+        # Start fresh: create/replace with just the header row
+        replace_sheet(xlsx_path, sheet_name, pd.DataFrame(columns=["CommonsFileName", "SourceCategory"]))
+    else:
+        # APPEND mode: load existing keys (if any) to support de-duplication
+        if sheet_exists(xlsx_path, sheet_name):
+            try:
+                df_existing = read_sheet_df(xlsx_path, sheet_name)
+                # Normalize the expected columns
+                if "CommonsFileName" not in df_existing.columns:
+                    df_existing["CommonsFileName"] = ""
+                if "SourceCategory" not in df_existing.columns:
+                    df_existing["SourceCategory"] = ""
+                for _, row in df_existing.iterrows():
+                    existing_keys.add(norm_key(str(row["CommonsFileName"]), str(row["SourceCategory"])))
+                total_existing = len(existing_keys)
+            except Exception as e:
+                print(f"⚠️  Could not read existing '{sheet_name}' for de-duplication: {e}")
+
+    print(
+        f"Harvesting category: {category_title}"
+        + (f" [range {index_start}..{index_end}]" if index_start or index_end else "")
+        + (" (APPEND mode)" if not replace_existing else " (REPLACE mode)")
+        + (", de-dup ON" if dedupe else ", de-dup OFF")
+    )
 
     params = {
         "action": "query",
@@ -679,12 +695,10 @@ def harvest_category_to_sheet(
         "cmlimit": str(CATEGORY_PAGE_LIMIT),
     }
 
-    harvested_rows: List[Dict[str, Any]] = []
-    total_seen = 0
-    total_written = 0
-    cont: Optional[Dict[str, str]] = None
-    want_start = index_start or 1
-    want_end = index_end or float("inf")
+    harvested_rows: list[dict[str, str]] = []
+    total_seen = 0        # files scanned in the category this run
+    written_this_run = 0  # appended rows written in this run
+    cont: Optional[dict[str, str]] = None
 
     try:
         while True:
@@ -700,54 +714,69 @@ def harvest_category_to_sheet(
             page_first = total_seen + 1
             page_last = total_seen + len(members)
 
-            # Overlap with requested range
+            # Determine overlap with requested range
             take_from = max(want_start, page_first)
             take_to = min(want_end, page_last)
 
             if take_from <= take_to:
-                slice_start = take_from - page_first
-                slice_end = take_to - page_first + 1  # inclusive → exclusive
-                subset = members[slice_start:slice_end]
+                s = take_from - page_first
+                e = take_to - page_first + 1  # inclusive -> exclusive
+                subset = members[s:e]
                 for m in subset:
                     title = str(m.get("title") or "")
                     if not title:
                         continue
-                    harvested_rows.append({"CommonsFileName": title, "SourceCategory": category_title})
-                    total_written += 1
+                    row = {"CommonsFileName": title, "SourceCategory": category_title}
+                    if dedupe:
+                        k = norm_key(row["CommonsFileName"], row["SourceCategory"])
+                        if (k in existing_keys):
+                            continue
+                        existing_keys.add(k)  # reserve now to avoid duplicates within this run
+                    harvested_rows.append(row)
+                    written_this_run += 1
 
             total_seen = page_last
 
-            # Flush periodically
+            # Flush buffered rows to Excel periodically
             if harvested_rows and (len(harvested_rows) >= flush_rows):
                 df_flush = pd.DataFrame(harvested_rows, columns=["CommonsFileName", "SourceCategory"])
                 append_chunk_to_sheet(xlsx_path, sheet_name, df_flush)
                 harvested_rows.clear()
-                print(f"  • Harvested {total_written} within range; scanned {total_seen} items…")
+                print(
+                    f"  • Appended {written_this_run} new row(s)"
+                    + (f" (existing before run: {total_existing})" if total_existing else "")
+                    + f"; scanned {total_seen} items so far…"
+                )
 
-            # Stop early when end reached
-            if total_written >= (want_end - want_start + 1 if want_end != float('inf') else total_written + 1):
+            # Stop early when the requested range is complete
+            if want_end != float("inf") and written_this_run >= (want_end - want_start + 1):
                 break
 
             cont = data.get("continue")
             if not cont:
                 break
+
     except requests.RequestException as e:
-        print(f"❌ Category harvest failed: {e}")
-        # Keep anything harvested so far; caller can inspect the partial sheet.
+        print(f"❌ Category harvest failed: {e} — partial results kept.")
     except Exception as e:
-        print(f"❌ Unexpected error during harvest: {e}")
-        # Keep partial results.
+        print(f"❌ Unexpected error during harvest: {e} — partial results kept.")
 
     # Final flush
-    try:
-        if harvested_rows:
+    if harvested_rows:
+        try:
             df_flush = pd.DataFrame(harvested_rows, columns=["CommonsFileName", "SourceCategory"])
             append_chunk_to_sheet(xlsx_path, sheet_name, df_flush)
             harvested_rows.clear()
-    except Exception as e:
-        print(f"❌ Failed to finalize harvest writes: {e}")
+        except Exception as e:
+            print(f"❌ Failed to finalize harvest writes: {e}")
 
-    print(f"✅ Harvest complete: wrote {total_written} row(s) to '{sheet_name}'. (Category items scanned: {total_seen})")
+    print(
+        f"✅ Harvest complete for '{category_title}'. "
+        f"Appended {written_this_run} new row(s)"
+        + (f"; existing before run: {total_existing}" if total_existing else "")
+        + f". Scanned {total_seen} items in category."
+    )
+
 
 
 # ---------- Processing (chunked) ----------
@@ -758,6 +787,8 @@ def process_input_sheet_chunked(
     input_sheet: str,
     output_sheet: str,
     chunk_size: int,
+    output_dedupe_keys: Optional[List[str]] = None,   # NEW
+    output_dedupe_keep: str = "first",                # NEW
 ) -> None:
     """
     Process rows from an input sheet in chunks and append results to an output sheet.
@@ -898,7 +929,13 @@ def process_input_sheet_chunked(
         chunk_df = chunk_df.reindex(columns=cols)
 
         # Append/widen/replace output sheet
-        append_chunk_to_sheet(xlsx_path, output_sheet, chunk_df)
+        append_chunk_to_sheet(
+            xlsx_path,
+            output_sheet,
+            chunk_df,
+            dedupe_keys=output_dedupe_keys,
+            dedupe_keep=output_dedupe_keep,
+        )
 
         processed_so_far += len(batch)
         print(f"[Batch {batch_index + 1}/{num_batches}] Wrote {len(batch)} rows → '{output_sheet}' (total {processed_so_far}/{total}).")
@@ -911,6 +948,7 @@ def process_input_sheet_chunked(
 def run_manual_list() -> None:
     """
     Execute the manual-list mode: read 'Files-Manual' and write metadata to 'FilesMetadata-Manual'.
+    De-duplicate output rows by (Input_CommonsFileName, Computed_MediaID).
     """
     session = build_session()
     process_input_sheet_chunked(
@@ -919,17 +957,15 @@ def run_manual_list() -> None:
         input_sheet=INPUT_SHEET_MANUAL,
         output_sheet=OUTPUT_SHEET_MANUAL,
         chunk_size=CHUNK_SIZE,
+        output_dedupe_keys=["Input_CommonsFileName", "Computed_MediaID"],  # hard-wired, these are the column names in the output sheet.)
+        output_dedupe_keep="first",  # keep the existing row if duplicate appears
     )
 
 
 def run_category() -> None:
-    """
-    Execute the category mode:
-      - Harvest 'CATEGORY_TITLE' to 'Files-Category' (optionally a 1-based range).
-      - Process that sheet in chunks into 'FilesMetadata-Category'.
-    """
     session = build_session()
-    # Phase A: harvest category → Files-Category (incremental), honoring optional range
+
+    # Harvest (your existing call, unchanged)
     harvest_category_to_sheet(
         session=session,
         category_title=CATEGORY_TITLE,
@@ -938,14 +974,18 @@ def run_category() -> None:
         flush_rows=HARVEST_FLUSH_ROWS,
         index_start=CATEGORY_RANGE_START,
         index_end=CATEGORY_RANGE_END,
+        # keep your existing append/dedupe flags for the *input* sheet
     )
-    # Phase B: process harvested list in chunks → FilesMetadata-Category
+
+    # Process → de-dup output by (filename, MID, source category)
     process_input_sheet_chunked(
         session=session,
         xlsx_path=XLSX_PATH,
         input_sheet=INPUT_SHEET_CATEGORY,
         output_sheet=OUTPUT_SHEET_CATEGORY,
         chunk_size=CHUNK_SIZE,
+        output_dedupe_keys=["Input_CommonsFileName", "Computed_MediaID", "SourceCategory"], # hard-wired, these are the column names in the output sheet.)
+        output_dedupe_keep="first",  # or "last" if you prefer latest to win
     )
 
 

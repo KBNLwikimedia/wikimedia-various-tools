@@ -1,0 +1,99 @@
+{
+    "batchcomplete": true,
+    "query": {
+        "pages": [
+            {
+                "imageinfo": [
+                    {
+                        "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=123807096",
+                        "descriptionurl": "https://commons.wikimedia.org/wiki/File:%27t_Geseegend_jaer_van_MDCCVI_-_KONB16-395501628_-_Prent_1_van_1.jpg",
+                        "extmetadata": {
+                            "Artist": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn value\">\n<p>Printer(s) and/or publisher(s) of this object: \n</p>\n<ul><li>Amsterdam : s.n.</li></ul></div>"
+                            },
+                            "Assessments": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": ""
+                            },
+                            "AttributionRequired": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "false"
+                            },
+                            "Categories": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": "Cornelis Huyberts|Media contributed by Koninklijke Bibliotheek|PD-old-70-expired|Artworks without Wikidata item|PD-Art (PD-old-70-expired)|Artworks with known accession number|CC-PD-Mark|Broadsheet prints from Koninklijke Bibliotheek"
+                            },
+                            "CommonsMetadataExtension": {
+                                "hidden": "",
+                                "source": "extension",
+                                "value": 1.2
+                            },
+                            "Copyrighted": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "False"
+                            },
+                            "Credit": {
+                                "source": "commons-desc-page",
+                                "value": "This digital media file - and/or the physical objects depicted on it - originates from the digital and/or physical collections of the <a rel=\"nofollow\" class=\"external text\" href=\"https://www.kb.nl/\">Koninklijke Bibliotheek</a>, national library of the Netherlands."
+                            },
+                            "DateTime": {
+                                "hidden": "",
+                                "source": "mediawiki-metadata",
+                                "value": "2022-10-05 11:33:16"
+                            },
+                            "DateTimeOriginal": {
+                                "source": "commons-desc-page",
+                                "value": "1706<div style=\"display: none;\">date QS:P571,+1706-00-00T00:00:00Z/9</div>"
+                            },
+                            "ImageDescription": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"description\">\nPrent door of naar Cornelis Huyberts --- Met beschrijving in proza en met gedicht. Hier boven het opschrift: Ter eeuwiger Gedagtenis der Heerlyke Overwinningen ...: met Nederlandsche en Latijnsche bijschriften</div>"
+                            },
+                            "License": {
+                                "hidden": "",
+                                "source": "commons-templates",
+                                "value": "pd"
+                            },
+                            "LicenseShortName": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            },
+                            "ObjectName": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn\">\n't Geseegend jaer van MDCCVI</div>"
+                            },
+                            "Restrictions": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": ""
+                            },
+                            "UsageTerms": {
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            }
+                        },
+                        "height": 1900,
+                        "mediatype": "BITMAP",
+                        "mime": "image/jpeg",
+                        "sha1": "4217247e6aff53c154bf33a15f911a734a236824",
+                        "size": 713732,
+                        "timestamp": "2022-10-05T11:33:16Z",
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/9/95/%27t_Geseegend_jaer_van_MDCCVI_-_KONB16-395501628_-_Prent_1_van_1.jpg",
+                        "user": "OlafJanssen",
+                        "width": 1500
+                    }
+                ],
+                "imagerepository": "local",
+                "ns": 6,
+                "pageid": 123807096,
+                "title": "File:'t Geseegend jaer van MDCCVI - KONB16-395501628 - Prent 1 van 1.jpg"
+            }
+        ]
+    }
+}

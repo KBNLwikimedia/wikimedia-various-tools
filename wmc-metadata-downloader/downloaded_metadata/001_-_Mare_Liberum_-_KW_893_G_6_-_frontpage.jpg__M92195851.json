@@ -1,0 +1,95 @@
+{
+    "batchcomplete": true,
+    "query": {
+        "pages": [
+            {
+                "imageinfo": [
+                    {
+                        "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=92195851",
+                        "descriptionurl": "https://commons.wikimedia.org/wiki/File:001_-_Mare_Liberum_-_KW_893_G_6_-_frontpage.jpg",
+                        "extmetadata": {
+                            "Artist": {
+                                "source": "commons-desc-page",
+                                "value": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Hugo_Grotius\" class=\"extiw\" title=\"w:en:Hugo Grotius\"><span title=\"Dutch jurist and scholar (1583-1645)\">Hugo Grotius</span></a></bdi>"
+                            },
+                            "Assessments": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": ""
+                            },
+                            "AttributionRequired": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "false"
+                            },
+                            "Categories": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": "Media contributed by Koninklijke Bibliotheek|Author died more than 100 years ago public domain images|Uploaded with pattypan|Images with extracted images|CC-PD-Mark|Artworks digital representation of unknown type of work|Artworks digital representation of unclassified work|Mare Liberum (KW 893 G 6 - KB copy - Openings)"
+                            },
+                            "CommonsMetadataExtension": {
+                                "hidden": "",
+                                "source": "extension",
+                                "value": 1.2
+                            },
+                            "Copyrighted": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "False"
+                            },
+                            "Credit": {
+                                "source": "commons-desc-page",
+                                "value": "This digital media file - and/or the physical objects depicted on it - originates from the digital and/or physical collections of the <a rel=\"nofollow\" class=\"external text\" href=\"https://www.kb.nl/\">Koninklijke Bibliotheek</a>, national library of the Netherlands."
+                            },
+                            "DateTime": {
+                                "hidden": "",
+                                "source": "mediawiki-metadata",
+                                "value": "2020-07-13 10:20:07"
+                            },
+                            "ImageDescription": {
+                                "source": "commons-desc-page",
+                                "value": "Mare Liberym - Hugo Grotius"
+                            },
+                            "License": {
+                                "hidden": "",
+                                "source": "commons-templates",
+                                "value": "pd"
+                            },
+                            "LicenseShortName": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            },
+                            "ObjectName": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn\">\n<div style=\"font-size:0.9em;display:inline-block;\">Latin:  <div style=\"display:inline-block\" dir=\"ltr\" lang=\"la\"><i>Mare Liberum, sive de jure quod Batavis competit ad Indicana commercia dissertatio <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q2633695#P1476\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span></i></div></div><br><div style=\"font-weight:bold;display:inline-block;\"><div style=\"display:inline-block\" dir=\"ltr\" lang=\"en\"><i>Mare Liberum</i></div></div><div style=\"display: none;\">title QS:P1476,la:\"Mare Liberum, sive de jure quod Batavis competit ad Indicana commercia dissertatio <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q2633695#P1476\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>\"</div><div style=\"display: none;\">label QS:Lla,\"Mare Liberum, sive de jure quod Batavis competit ad Indicana commercia dissertatio <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q2633695#P1476\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>\"</div><div style=\"display: none;\">label QS:Les,\"Mare liberum\"</div><div style=\"display: none;\">label QS:Lfr,\"Mare Liberum\"</div><div style=\"display: none;\">label QS:Lca,\"Mare liberum\"</div><div style=\"display: none;\">label QS:Lde,\"Mare Liberum\"</div><div style=\"display: none;\">label QS:Lvi,\"Biển mở (Luật Quốc tế)\"</div><div style=\"display: none;\">label QS:Lfa,\"ماره لیبروم\"</div><div style=\"display: none;\">label QS:Lzh,\"海洋自由論\"</div><div style=\"display: none;\">label QS:Ltr,\"Denizlerin Serbestisi\"</div><div style=\"display: none;\">label QS:Lja,\"自由海論\"</div><div style=\"display: none;\">label QS:Lid,\"Mare Liberum\"</div><div style=\"display: none;\">label QS:Lsv,\"Mare liberum\"</div><div style=\"display: none;\">label QS:Lzh-hans,\"海洋自由论\"</div><div style=\"display: none;\">label QS:Lhe,\"דיני הימים\"</div><div style=\"display: none;\">label QS:Lnl,\"Mare Liberum\"</div><div style=\"display: none;\">label QS:Lzh-hant,\"海洋自由論\"</div><div style=\"display: none;\">label QS:Lzh-cn,\"海洋自由论\"</div><div style=\"display: none;\">label QS:Lio,\"Mare Liberum\"</div><div style=\"display: none;\">label QS:Len,\"Mare Liberum\"</div><div style=\"display: none;\">label QS:Lpt,\"Mare Liberum\"</div></div>"
+                            },
+                            "Restrictions": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": ""
+                            },
+                            "UsageTerms": {
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            }
+                        },
+                        "height": 4881,
+                        "mediatype": "BITMAP",
+                        "mime": "image/jpeg",
+                        "sha1": "0ce7b8b425e1cfcf4e03bf144d2914e7d0c40c0d",
+                        "size": 16515122,
+                        "timestamp": "2020-07-13T10:20:07Z",
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/001_-_Mare_Liberum_-_KW_893_G_6_-_frontpage.jpg",
+                        "user": "DanielleJWiki",
+                        "width": 3354
+                    }
+                ],
+                "imagerepository": "local",
+                "ns": 6,
+                "pageid": 92195851,
+                "title": "File:001 - Mare Liberum - KW 893 G 6 - frontpage.jpg"
+            }
+        ]
+    }
+}

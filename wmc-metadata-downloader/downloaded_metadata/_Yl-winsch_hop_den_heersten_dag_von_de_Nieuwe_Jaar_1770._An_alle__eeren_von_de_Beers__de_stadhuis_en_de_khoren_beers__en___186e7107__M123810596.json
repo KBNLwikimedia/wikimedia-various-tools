@@ -1,0 +1,95 @@
+{
+    "batchcomplete": true,
+    "query": {
+        "pages": [
+            {
+                "imageinfo": [
+                    {
+                        "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=123810596",
+                        "descriptionurl": "https://commons.wikimedia.org/wiki/File:%27Yl-winsch_hop_den_heersten_dag_von_de_Nieuwe_Jaar_1770._An_alle_%27eeren_von_de_Beers,_de_stadhuis_en_de_khoren_beers,_en_%C3%A2n_de_bediendens_von_dezelven,_etc_-_KONB16-402441214_-_Prent_1_van_1.jpg",
+                        "extmetadata": {
+                            "Artist": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn value\">\n<p>Creator(s) and/or contributor(s) of this object: \n</p>\n<ul><li>Mozes Polak</li>\n<li>Siemon Polak</li></ul></div>"
+                            },
+                            "Assessments": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": ""
+                            },
+                            "AttributionRequired": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "false"
+                            },
+                            "Categories": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": "Media contributed by Koninklijke Bibliotheek|PD-old-70-expired|Artworks without Wikidata item|PD-Art (PD-old-70-expired)|Artworks with known accession number|CC-PD-Mark|Broadsheet prints from Koninklijke Bibliotheek"
+                            },
+                            "CommonsMetadataExtension": {
+                                "hidden": "",
+                                "source": "extension",
+                                "value": 1.2
+                            },
+                            "Copyrighted": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "False"
+                            },
+                            "Credit": {
+                                "source": "commons-desc-page",
+                                "value": "This digital media file - and/or the physical objects depicted on it - originates from the digital and/or physical collections of the <a rel=\"nofollow\" class=\"external text\" href=\"https://www.kb.nl/\">Koninklijke Bibliotheek</a>, national library of the Netherlands."
+                            },
+                            "DateTime": {
+                                "hidden": "",
+                                "source": "mediawiki-metadata",
+                                "value": "2022-10-05 12:49:14"
+                            },
+                            "DateTimeOriginal": {
+                                "source": "commons-desc-page",
+                                "value": "1770<div style=\"display: none;\">date QS:P571,+1770-00-00T00:00:00Z/9</div>"
+                            },
+                            "License": {
+                                "hidden": "",
+                                "source": "commons-templates",
+                                "value": "pd"
+                            },
+                            "LicenseShortName": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            },
+                            "ObjectName": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn\">\n'Yl-winsch hop den heersten dag von de Nieuwe Jaar 1770. An alle 'eeren von de Beers, de stadhuis en de khoren beers, en ân de bediendens von dezelven, etc</div>"
+                            },
+                            "Restrictions": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": ""
+                            },
+                            "UsageTerms": {
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            }
+                        },
+                        "height": 2519,
+                        "mediatype": "BITMAP",
+                        "mime": "image/jpeg",
+                        "sha1": "241dbb8bdbcad0be4e8961685a112e63ba2a7d7f",
+                        "size": 913339,
+                        "timestamp": "2022-10-05T12:49:14Z",
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/6/68/%27Yl-winsch_hop_den_heersten_dag_von_de_Nieuwe_Jaar_1770._An_alle_%27eeren_von_de_Beers%2C_de_stadhuis_en_de_khoren_beers%2C_en_%C3%A2n_de_bediendens_von_dezelven%2C_etc_-_KONB16-402441214_-_Prent_1_van_1.jpg",
+                        "user": "OlafJanssen",
+                        "width": 1500
+                    }
+                ],
+                "imagerepository": "local",
+                "ns": 6,
+                "pageid": 123810596,
+                "title": "File:'Yl-winsch hop den heersten dag von de Nieuwe Jaar 1770. An alle 'eeren von de Beers, de stadhuis en de khoren beers, en ân de bediendens von dezelven, etc - KONB16-402441214 - Prent 1 van 1.jpg"
+            }
+        ]
+    }
+}

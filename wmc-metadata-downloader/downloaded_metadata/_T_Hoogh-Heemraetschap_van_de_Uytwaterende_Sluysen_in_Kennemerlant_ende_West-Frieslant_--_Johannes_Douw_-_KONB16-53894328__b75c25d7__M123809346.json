@@ -1,0 +1,99 @@
+{
+    "batchcomplete": true,
+    "query": {
+        "pages": [
+            {
+                "imageinfo": [
+                    {
+                        "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=123809346",
+                        "descriptionurl": "https://commons.wikimedia.org/wiki/File:%27T_Hoogh-Heemraetschap_van_de_Uytwaterende_Sluysen_in_Kennemerlant_ende_West-Frieslant_--_Johannes_Douw_-_KONB16-538943289_-_Prent_1_van_1.jpg",
+                        "extmetadata": {
+                            "Artist": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn value\">\n<p>Creator(s) and/or contributor(s) of this object: \n</p>\n<ul><li>Johannes Douw</li></ul></div>"
+                            },
+                            "Assessments": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": ""
+                            },
+                            "AttributionRequired": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "false"
+                            },
+                            "Categories": {
+                                "hidden": "",
+                                "source": "commons-categories",
+                                "value": "Media contributed by Koninklijke Bibliotheek|PD-old-70-expired|Artworks without Wikidata item|PD-Art (PD-old-70-expired)|Artworks with known accession number|CC-PD-Mark|Broadsheet prints from Koninklijke Bibliotheek|Broadsheet prints from Koninklijke Bibliotheek - Maps"
+                            },
+                            "CommonsMetadataExtension": {
+                                "hidden": "",
+                                "source": "extension",
+                                "value": 1.2
+                            },
+                            "Copyrighted": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "False"
+                            },
+                            "Credit": {
+                                "source": "commons-desc-page",
+                                "value": "This digital media file - and/or the physical objects depicted on it - originates from the digital and/or physical collections of the <a rel=\"nofollow\" class=\"external text\" href=\"https://www.kb.nl/\">Koninklijke Bibliotheek</a>, national library of the Netherlands."
+                            },
+                            "DateTime": {
+                                "hidden": "",
+                                "source": "mediawiki-metadata",
+                                "value": "2022-10-05 12:17:00"
+                            },
+                            "DateTimeOriginal": {
+                                "source": "commons-desc-page",
+                                "value": "between 1682 and 1683<div style=\"display: none;\">date QS:P571,+1682-00-00T00:00:00Z/8,P1319,+1682-00-00T00:00:00Z/9,P1326,+1683-00-00T00:00:00Z/9</div>"
+                            },
+                            "ImageDescription": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"description\">\nkopergrav --- Oost boven --- Met schaalstok: 15 hondert Rhijnlandse roede, of 1 ure gaens --- Schaal [ca. 1:100.000] --- Oorspr. uitg.: [Amsterdam : Jan Karelsz., 1680] --- Verkleinde uitg. in 1 bl. van de kaart in 16 bl --- Met octroy voor 15 jaren</div>"
+                            },
+                            "License": {
+                                "hidden": "",
+                                "source": "commons-templates",
+                                "value": "pd"
+                            },
+                            "LicenseShortName": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            },
+                            "ObjectName": {
+                                "source": "commons-desc-page",
+                                "value": "<div class=\"fn\">\n'T Hoogh-Heemraetschap van de Uytwaterende Sluysen in Kennemerlant ende West-Frieslant -- Johannes Douw</div>"
+                            },
+                            "Restrictions": {
+                                "hidden": "",
+                                "source": "commons-desc-page",
+                                "value": ""
+                            },
+                            "UsageTerms": {
+                                "source": "commons-desc-page",
+                                "value": "Public domain"
+                            }
+                        },
+                        "height": 1163,
+                        "mediatype": "BITMAP",
+                        "mime": "image/jpeg",
+                        "sha1": "70b430483e89afcaba592f5e48032a61d1290947",
+                        "size": 510431,
+                        "timestamp": "2022-10-05T12:17:00Z",
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/3/30/%27T_Hoogh-Heemraetschap_van_de_Uytwaterende_Sluysen_in_Kennemerlant_ende_West-Frieslant_--_Johannes_Douw_-_KONB16-538943289_-_Prent_1_van_1.jpg",
+                        "user": "OlafJanssen",
+                        "width": 1500
+                    }
+                ],
+                "imagerepository": "local",
+                "ns": 6,
+                "pageid": 123809346,
+                "title": "File:'T Hoogh-Heemraetschap van de Uytwaterende Sluysen in Kennemerlant ende West-Frieslant -- Johannes Douw - KONB16-538943289 - Prent 1 van 1.jpg"
+            }
+        ]
+    }
+}
