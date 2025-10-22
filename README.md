@@ -9,7 +9,7 @@
 
 This repo contains the following tools:
 
-1) [Wikimedia Commons File Metadata Downloader](wmc-metadata-downloader/README.md): A practical tool to collect per-file metadata from Wikimedia Commons and write it into an Excel workbook — safely, in chunks, and with per-file JSON snapshots.
+1) [Wikimedia Commons File Metadata Downloader](wmc-metadata-downloader/README.md): A tool to collect metadata from Wikimedia Commons files and write them into an Excel sheet — safely, in chunks, and with per-file JSON snapshots.
 
 2) TO ADD: [Wikimedia Commons Image Downloaders](xxx): Three different scripts to download images from Wikimedia Commons based on various criteria, such as categories, xxxss, or specific file lists.
 

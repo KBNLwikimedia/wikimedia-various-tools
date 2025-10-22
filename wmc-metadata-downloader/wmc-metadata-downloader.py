@@ -1,5 +1,5 @@
 """
-Wikimedia Commons file metadata downloader & Excel writer
+Wikimedia Commons File Metadata Downloader & Excel Writer
 
 Overview
 ========
@@ -161,7 +161,7 @@ Notes
 - If you enable long paths on Windows, you can increase ``FULL_PATH_BUDGET``.
 
 Author: ChatGPT, prompted by Olaf Janssen, KB (Koninklijke Bibliotheek)
-Latest update: 2025-10-21
+Latest update: 2025-10-22
 License: CC0
 """
 

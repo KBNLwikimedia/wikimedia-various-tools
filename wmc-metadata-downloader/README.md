@@ -1,36 +1,35 @@
 # Wikimedia Commons File Metadata Downloader
 
-*A practical tool to collect per-file metadata from Wikimedia Commons and write it into an Excel workbook — safely, in chunks, and with per-file JSON snapshots.*
+*A tool to collect metadata from Wikimedia Commons files and write them into an Excel sheet — safely, in chunks, and with per-file JSON snapshots.*
 
-It has two operation modes:
-* **Manual list mode**: process a list of Commons file titles you provide.
-* **Category mode**: harvest files from a Commons category (even huge ones), optionally only a **range** (e.g., items 20–40), then process them the same way.
+This tool has two operation modes:
+* **Manual list mode**: process a list of Commons file titles you manually provide.
+* **Category mode**: harvest files from a Commons category (even huge ones), optionally only a range (e.g., items 20–40), then process them the same way.
 
-The script saves the **exact JSON response** for each file into `downloaded_metadata/` (Windows-safe filenames, overwrite if identical) and appends **flattened JSON columns** to your Excel workbook as it progresses.
+The script saves the exact API response for each file as JSON into `downloaded_metadata/` (Windows-safe filenames, overwrite if identical) and appends flattened JSON columns to the Excel workbook as it progresses.
 
 ---
 
 ## What you’ll get
 
-* **Input workbook**: `wmc-inputfiles.xlsx`
-* **Manual list**
-
-  * Input sheet: `Files-Manual`
+* **Input Excel file**: `wmc-inputfiles.xlsx`
+* **Manual list mode**
+  * Input sheet: `Files-Manual` (manually provided by the user)
   * Output sheet: `FilesMetadata-Manual`
-* **Category**
-
+  
+* **Category mode**
   * Harvest sheet: `Files-Category` (built/updated by the script)
   * Output sheet: `FilesMetadata-Category`
-* **Per-file JSON**: saved to `downloaded_metadata/<CommonsFileName>__<MID-or-NOID>.json`
+* **Per-file JSON**: saved as JSON files to folder `downloaded_metadata/` with filename syntax `<CommonsFileName>__<MID-or-NOID>.json`
 
-> The output sheets are updated **incrementally** in batches (chunks), so you can stop and resume without losing progress.
+> The output sheets are updated incrementally in configurable batches (chunks). This will lower the risk of intermediate data losses.
 
 ---
 
 ## Prerequisites
 
 * Python **3.9+** (3.10/3.11 recommended)
-* An Excel workbook named **`wmc-inputfiles.xlsx`** (created in this repo folder)
+* An Excel workbook named `wmc-inputfiles.xlsx` (an example is provided in this repo)
 * The packages listed in `requirements.txt`
 
 ### Install dependencies
@@ -44,122 +43,80 @@ requests>=2.31.0
 urllib3>=2.0.0
 ```
 
-Create a virtual environment and install:
+If not already done, you can create a virtual environment and install:
 
 **macOS / Linux**
-
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
+python3 -m venv .venv  # Create virtual environment in the .venv folder (optional, of not already done)
+source .venv/bin/activate # Activate the venv 
+python -m pip install -r requirements.txt # Install the Python packages in the venv
 ```
 
 **Windows (PowerShell)**
-
 ```powershell
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+py -m venv .venv  # Create virtual environment in the .venv folder (optional, of not already done)
+.\.venv\Scripts\Activate.ps1 # Activate the venv 
+python -m pip install -r requirements.txt # Install the Python packages in the venv
 ```
 
 ---
 
 ## Configuration
 
-Open the script (e.g., `wmc_metadata.py`) and edit the **configuration block** near the top. This block is included **verbatim** in the script:
+Open the script `wmc_metadata.py` and edit the configuration block near the top. 
 
 ```python
 # Comment out the mode you do NOT want to use:
 #MODE = "manual-list" # Comment out if MODE = category
 MODE = "category"  # In this mode, you must configure the CATEGORY_TITLE below.
-CATEGORY_TITLE = "Category:Catchpenny prints from Koninklijke Bibliotheek"
+CATEGORY_TITLE = "Category:Catchpenny prints from Koninklijke Bibliotheek" # Change to your own Commons category
+# Optional range for CATEGORY mode (1-based inclusive). First 10 files in this category:
+CATEGORY_RANGE_START: Optional[int] = 1  # Set to =None to process all
+CATEGORY_RANGE_END:   Optional[int] = 10  # or =None to process all
 
-# Input workbook - required in both modes
+USER_AGENT = "Wikimedia Commons File Metadata Downloader - User:YourWikiUserName - Contact:you@email.tld)" # Please set your own contact info here.
+
+# Input Excel file - required in both modes
 XLSX_PATH = "wmc-inputfiles.xlsx"
-
-# Input sheets
-INPUT_SHEET_MANUAL = "Files-Manual"
-INPUT_SHEET_CATEGORY = "Files-Category"
-# Output sheets
-OUTPUT_SHEET_MANUAL = "FilesMetadata-Manual"
-OUTPUT_SHEET_CATEGORY = "FilesMetadata-Category"
-
-# Category harvesting
-CATEGORY_PAGE_LIMIT = 500  # API max for non-bot
-
- # HARVEST_FLUSH_ROWS : Category-mode only. How many harvested filenames (from the Commons category) we
-# accumulate before writing them into the input sheet WMCFiles-Category.
-HARVEST_FLUSH_ROWS = 100
-
-# CHUNK_SIZE → Both modes. How many files we actually process per batch (fetch JSON, save per-file JSON, flatten,
-# and append rows to the output sheet).
-CHUNK_SIZE = 100  # per your spec
-
-# Where to drop per-file JSON
-DOWNLOAD_DIR = Path("downloaded_metadata")
-
-# API & etiquette
-COMMONS_API = "https://commons.wikimedia.org/w/api.php"
-EXTMETA_LANG = "en"  # or "nl"
-USER_AGENT = "KB WMC metadata fetcher - User:OlafJanssen - Contact: olaf.janssen@kb.nl)"
-
-# Requests
-TIMEOUT_SECS = 20
-RETRIES_TOTAL = 5
-RETRIES_BACKOFF = 0.6
-
-# Windows path safety
-FULL_PATH_BUDGET = 240  # conservative full-path length budget
 ```
-
-### Optional: Category range (slice)
-
-Just below the config block you can set a **1-based inclusive** slice for category mode:
-
-```python
-CATEGORY_RANGE_START = 20   # e.g., start at the 20th file
-CATEGORY_RANGE_END   = 40   # …end at the 40th (inclusive)
-```
-
-Leave them as `None` to harvest the full category.
-
 ---
 
 ## Preparing the workbook
 
 Create `wmc-inputfiles.xlsx` in the same folder as the script.
 
-### Manual-list mode
+### 1) Manual-list mode
 
-Create a sheet named **`Files-Manual`** with these columns:
+Create a sheet named `Files-Manual` with these columns:
 
-| CommonsFileName  | SourceCategory              |
-| ---------------- | --------------------------- |
+| CommonsFileName  | SourceCategory *(optional)* |
+| ---------------- |-----------------------------|
 | File:Example.jpg | Category:My Project Images  |
 | Example2.png     |                             |
 | File:Another.svg | Category:Another Collection |
 
-* `CommonsFileName` is **required**. If you forget the `File:` prefix, the script adds it.
+* `CommonsFileName` is required. If you forget the `File:` prefix, the script adds it.
 * `SourceCategory` is optional (it’s copied into the output).
 
-### Category mode
+### 2) Category mode
 
-No prep needed for input: the script will **create/update** the **`Files-Category`** sheet with harvested items from `CATEGORY_TITLE`.
+No preparations needed for input: the script will create/update the `Files-Category` sheet with harvested items from `CATEGORY_TITLE`.
 
 ---
 
 ## Running
 
-> Make sure `wmc-inputfiles.xlsx` is **closed** in Excel before running.
+> Make sure `wmc-inputfiles.xlsx` is closed in Excel before running.
 
-From your virtual environment:
+From your virtual environment (if used), run:
 
 ```bash
 python wmc_metadata.py
 ```
 
-* The script prints progress, e.g.:
+Or run from IDEs like PyCharm, VSCode, etc.
 
+The script prints progress, e.g.:
   * Harvest: `Harvested 500 within range; scanned 1500 items…`
   * Processing: `[123/8120] Fetching File:Example.jpg … done (MID=M123456)`
   * Batch writes: `[Batch 7/41] Wrote 100 rows → 'FilesMetadata-Category' (total 700/4100).`
@@ -173,19 +130,17 @@ python wmc_metadata.py
 3. **Compute MediaInfo ID (MID)** from pageid, and **MID URL**.
 4. **Save the full JSON** to `downloaded_metadata/` using a Windows-safe name:
    `<CommonsFileName>__<MID or NOID>.json`
-
    * If too long: the filename is truncated and a short hash is added.
-   * If the same filename is produced again, it is **overwritten**.
-5. **Flatten JSON** into dotted columns and **append** to the output sheet in **chunks**.
-
+   * If the same filename is produced again, it is overwritten.
+5. **Flatten JSON** into dotted columns and append to the output sheet in chunks.
    * If a chunk introduces new JSON keys, the output sheet’s columns are widened and replaced once, then appending continues.
 
 ---
 
 ## Understanding the two “batch sizes”
 
-* **`HARVEST_FLUSH_ROWS`** *(category mode only)* – how many harvested file titles to buffer before appending them to **`Files-Category`** during **harvest**.
-* **`CHUNK_SIZE`** *(both modes)* – how many files to **process per batch** when fetching JSON and appending rows to **`FilesMetadata-…`** during **processing**.
+* `HARVEST_FLUSH_ROWS` *(category mode only)* – how many harvested file titles to buffer before appending them to the **`Files-Category`** input sheet during harvest.
+* `CHUNK_SIZE` *(both modes)* – how many files to process per batch when fetching JSON and appending rows to the two `FilesMetadata-…` output sheets during processing.
 
 Smaller values = more frequent writes, faster visible progress, more I/O.
 Larger values = fewer writes, more memory per batch.
@@ -215,29 +170,23 @@ Each row includes:
 * Directory: `downloaded_metadata/`
 * Name: `<CommonsFileName>__<MID or NOID>.json`
   (with truncation+hash if needed)
-* Overwrite: **Yes** (same name → overwritten)
+* Overwrite: Yes (same name → overwritten)
 
 ---
 
 ## Troubleshooting
 
-* **`Input workbook not found`**
-  Ensure `wmc-inputfiles.xlsx` exists in the repo folder.
+* `Input workbook not found`: Ensure `wmc-inputfiles.xlsx` exists in the repo folder.
 
-* **`Input sheet 'Files-Manual' not found`**
-  Check sheet names in Excel match the config (`Files-Manual` / `Files-Category`).
+* `Input sheet 'Files-Manual' not found`: Check sheet names in Excel match the config (`Files-Manual` / `Files-Category`).
 
-* **`Input sheet must contain 'CommonsFileName'`**
-  Add this column header to your input sheet.
+* `Input sheet must contain 'CommonsFileName'`: Add this column header to your input sheet.
 
-* **HTTP 429 or 5xx**
-  The script retries with backoff. If it persists, lower `CHUNK_SIZE` or add short sleeps (we can add this if needed).
+* *HTTP 429 or 5xx*: The script retries with backoff. If it persists, lower `CHUNK_SIZE` or add short sleeps (we can add this if needed).
 
-* **Excel is locked**
-  Close the workbook in Excel before running (the script writes to it).
+* *Excel is locked*: Close the workbook in Excel before running (the script writes to it).
 
-* **Paths too long on Windows**
-  The script shortens filenames automatically; if you still hit limits, lower `FULL_PATH_BUDGET` or run from a shorter folder path (e.g., `C:\w\`).
+* *Paths too long on Windows*: The script shortens filenames automatically; if you still hit limits, lower `FULL_PATH_BUDGET` or run from a shorter folder path (e.g., `C:\w\`).
 
 ---
 
@@ -245,8 +194,8 @@ Each row includes:
 
 * The `USER_AGENT` includes a real contact (recommended for Wikimedia API use).
 * For Dutch metadata, set `EXTMETA_LANG = "nl"`.
-* If your category has very many, that’s fine — the script harvests with continuation and writes **incrementally**.
-* Consider **git-ignoring** `downloaded_metadata/` if it grows large.
+* If your category contains very many files, that’s fine — the script harvests with continuation and writes incrementally.
+* Consider git-ignoring `downloaded_metadata/` if it grows large.
 
 ---
 
