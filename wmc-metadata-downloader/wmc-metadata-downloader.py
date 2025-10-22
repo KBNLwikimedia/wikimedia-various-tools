@@ -4,7 +4,7 @@ Wikimedia Commons File Metadata Downloader & Excel Writer
 Overview
 ========
 This script builds a reliable, resumable pipeline for collecting **per-file metadata**
-from Wikimedia Commons and writing it into an Excel workbook. It supports two
+from Wikimedia Commons files or categories and writing it into an Excel workbook. It supports two
 complementary modes:
 
 1) **manual-list** — read a list of Commons file titles from an input sheet.

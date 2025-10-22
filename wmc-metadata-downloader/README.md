@@ -1,6 +1,6 @@
 # Wikimedia Commons File Metadata Downloader
 
-*A tool to collect metadata from Wikimedia Commons files and write them into an Excel sheet — safely, in chunks, and with per-file JSON snapshots.*
+*A tool to collect metadata from Wikimedia Commons files or categories and write them into an Excel sheet — safely, in chunks, and with per-file JSON snapshots.*
 
 This tool has two operation modes:
 * **Manual list mode**: process a list of Commons file titles you manually provide.
