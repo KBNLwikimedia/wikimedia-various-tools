@@ -1,16 +1,12 @@
-## macOS / Linux
-# Create vitural environment , optional, of not already done
-python3 -m venv .venv
-# Activate the venv 
-source .venv/bin/activate
-# Install the Python packages in the venv
-python -m pip install -r requirements.txt
+If not already done, you can create a virtual environment and install:
+
+For macOS / Linux**
+- python3 -m venv .venv  # Create virtual environment in the .venv folder (optional, of not already done)
+- source .venv/bin/activate # Activate the venv
+- python -m pip install -r requirements.txt # Install the Python packages in the venv
 
 
-## Windows (PowerShell)
-# Create vitural environment , optional, of not already done
-py -m venv .venv 
-# Activate the venv 
-.\.venv\Scripts\Activate.ps1
-# Install the Python packages in the venv
-python -m pip install -r requirements.txt
+For Windows (PowerShell)
+- py -m venv .venv  # Create virtual environment in the .venv folder (optional, of not already done)
+- .\.venv\Scripts\Activate.ps1 # Activate the venv
+- python -m pip install -r requirements.txt # Install the Python packages in the venv
