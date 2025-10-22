@@ -2,14 +2,14 @@
 
 *A collection of various smaller tools to work with Wikimedia projects (Wikipedia, Commons, Wikidata)*  
 
-*Latest update*: 21 October 2025
+*Latest update*: 22 October 2025
 
 --------------
 ## Tools overview
 
 This repo contains the following tools:
 
-1) [Wikimedia Commons File Metadata Downloader](wmc-metadata-downloader/README.md): A tool to collect metadata from Wikimedia Commons files or categories and write them into an Excel sheet — safely, in chunks, and with per-file JSON snapshots.
+1) [Wikimedia Commons File Metadata Downloader](wmc-metadata-downloader/README.md): Collect metadata from Wikimedia Commons files or categories and write them into an Excel sheet — safely, in chunks, and with per-file JSON snapshots.
 
 2) TO ADD: [Wikimedia Commons Image Downloaders](xxx): Three different scripts to download images from Wikimedia Commons based on various criteria, such as categories, xxxss, or specific file lists.
 
