@@ -1,6 +1,6 @@
 # Wikimedia Commons File Downloader
 
-*A robust, Windows-safe downloader for Wikimedia Commons files*
+*A robust, Windows-safe downloader for Wikimedia Commons files* - Download Wikimedia Commons files by nested category tree or flat list, preview before downloading, slice a subset, use Windows-safe unique filenames, and log to Excel.
 
 Features include:
 
