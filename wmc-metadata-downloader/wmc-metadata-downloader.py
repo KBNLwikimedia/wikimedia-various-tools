@@ -143,7 +143,7 @@ from urllib3.util.retry import Retry
 
 
 # =========================
-# YOUR CONFIG
+# YOUR CONFIGURATION PARAMETERS
 # =========================
 # Comment out the mode you do NOT want to use:
 #MODE = "manual-list" # Comment out if MODE = category
